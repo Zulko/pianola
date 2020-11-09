@@ -7,13 +7,18 @@
           b-icon(icon='upload' size='is-large')
         p Drop a one-track MIDI file
   .load-example
-    a(@click="loadExample('/chopin_valse_op64_no1.mid')") Load an example
+    a(@click="loadExample(publicPath + 'chopin_valse_op64_no1.mid')") Load an example
 </template>
 
 <script>
 import midiFileParser from 'midi-file-parser';
 
 export default {
+  data() {
+    return {
+      publicPath: process.env.BASE_URL,
+    };
+  },
   methods: {
     parseMidi(file, fileName) {
       const reader = new FileReader();
