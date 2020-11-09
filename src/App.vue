@@ -4,16 +4,16 @@
     h1 Pianola
     h2 A web MIDI piano player
   midi-uploader(
-    v-if='!midiFileData',
+    v-if='!midiFileData.fileName',
     @input='(fileData) => { midiFileData = fileData; }'
   )
   file-infos(
-    v-if='midiFileData',
+    v-if='midiFileData.fileName',
     :fileName='midiFileData.fileName',
     :infos='midiFileData.infos',
-    @change='midiFileData = null'
+    @change='midiFileData = { fileName: null, midiEvents: [] }'
   )
-  player(v-if='midiFileData', :midiEvents='midiFileData.midiEvents')
+  player(v-if='midiFileData.fileName', :midiEvents='midiEvents')
 </template>
 
 <script>
@@ -25,13 +25,18 @@ export default {
   name: 'App',
   data() {
     return {
-      midiFileData: null,
+      midiFileData: { fileName: null, midiEvents: [] },
     };
   },
   components: {
     'midi-uploader': MidiUploader,
     'file-infos': FileInfos,
     player: Player,
+  },
+  computed: {
+    midiEvents() {
+      return this.midiFileData ? this.midiFileData.midiEvents : [];
+    },
   },
 };
 </script>

@@ -72,6 +72,7 @@ export default {
       instrument: null,
       volumeFactor: 1,
       noteSounds: {},
+      nextLoopTimeOut: null,
     };
   },
   components: {
@@ -113,7 +114,7 @@ export default {
           }
         }, (1000 * (e.timeSeconds - this.currentTime)) / this.speedFactor);
       });
-      setTimeout(() => {
+      this.nextLoopTimeOut = setTimeout(() => {
         if (self.isPlaying) {
           const time = self.currentTime + self.speedFactor * self.readingInterval;
           if (time > segmentEnd) {
@@ -158,6 +159,9 @@ export default {
       this.instrumentName,
       { soundfont: 'MusyngKite' },
     ).then((instrument) => { self.instrument = instrument; });
+  },
+  beforeDestroy() {
+    clearTimeout(this.nextLoopTimeOut);
   },
 };
 </script>
