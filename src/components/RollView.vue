@@ -62,7 +62,6 @@ export default {
       }
     });
     const lastNote = notes.slice(-1)[0];
-    console.log('notes', notes, lastNote); // eslint-disable-line
     const duration = Math.ceil(lastNote.timeSeconds + lastNote.duration);
     return { notes, duration };
   },

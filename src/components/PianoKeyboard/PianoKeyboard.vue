@@ -28,7 +28,6 @@
 import PianoKey from './PianoKey.vue';
 import { midiNoteIsBlackKey } from './tools';
 
-console.log('bla', midiNoteIsBlackKey) //eslint-disable-line
 export default {
   props: {
     pressedKeys: { default: () => ([]), type: Array },
