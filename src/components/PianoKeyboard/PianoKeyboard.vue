@@ -13,14 +13,14 @@
       v-if='!midiNoteIsBlackKey(midiNote)'
       :key='"white-" + midiNote',
       :midiNote='midiNote',
-      :isPressed='pressedKeys.includes(midiNote + 21)'
+      :isPressed='pressedKeys.includes(midiNote + 20)'
     )
     piano-key(
       v-for='midiNote in 88',
       v-if='midiNoteIsBlackKey(midiNote)'
       :key='"black-" + midiNote',
       :midiNote='midiNote',
-      :isPressed='pressedKeys.includes(midiNote + 21)'
+      :isPressed='pressedKeys.includes(midiNote + 20)'
     )
 </template>
 

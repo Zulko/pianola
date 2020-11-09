@@ -84,15 +84,8 @@ export default {
     },
     playLoop() {
       const [segmentStart, segmentEnd] = this.timeSegment;
-      const time = this.currentTime + this.speedFactor * this.readingInterval;
-      if (time > segmentEnd) {
-        this.currentTime = segmentStart;
-        this.pressedKeys = [];
-      } else {
-        this.currentTime = time;
-      }
       const nextTime = Math.min(
-        this.timeSegment[1],
+        segmentEnd,
         this.currentTime + this.speedFactor * this.readingInterval,
       );
       let { midiEvents } = this;
@@ -122,6 +115,13 @@ export default {
       });
       setTimeout(() => {
         if (self.isPlaying) {
+          const time = self.currentTime + self.speedFactor * self.readingInterval;
+          if (time > segmentEnd) {
+            self.currentTime = segmentStart;
+            self.pressedKeys = [];
+          } else {
+            self.currentTime = time;
+          }
           self.playLoop();
         }
       }, 1000 * this.readingInterval);
